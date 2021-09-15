@@ -1,12 +1,11 @@
-use std::{env, io::{Write, stdin, stdout}, path::Path, process::Command};
+use std::{env, io::{BufRead, Write, stdin, stdout}, path::Path, process::Command};
 
 fn main() {
     loop {
         print!("> ");
         stdout().flush().unwrap();
         
-        let mut input = String::new();
-        stdin().read_line(&mut input).unwrap();
+        let input = stdin().lock().lines().next().unwrap().expect("IO error");
 
         let parts = input.trim().split_whitespace().collect::<Vec<&str>>();
         let command = &parts.first().expect("invalid input");
